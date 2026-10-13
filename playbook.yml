@@ -1,0 +1,20 @@
+---
+- name: Install and enable Nginx
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: Refresh DNF cache
+      ansible.builtin.dnf:
+        update_cache: true
+
+    - name: Install Nginx
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx
+      ansible.builtin.service:
+        name: nginx
+        state: started
+        enabled: true
